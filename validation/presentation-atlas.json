@@ -1,0 +1,61 @@
+{
+  "atlas_version": 1,
+  "candidate": {
+    "id": "localized-relative-coend",
+    "status": "candidate",
+    "primary_home": "xTopos",
+    "definition_anchor": "def:relative-coend",
+    "proved_in_document": [
+      "representing property and uniqueness",
+      "restriction to slices",
+      "coherence of canonical base-change maps",
+      "indexed-equivalence invariance with chosen coherent data",
+      "terminal-site reduction",
+      "two-object separation example",
+      "fixed-base generators-and-relations coequalizer",
+      "exact stability criterion",
+      "failure of stability on a pullback-deficient site",
+      "stable base change under chosen pullbacks, Beck-Chevalley, and colimit preservation",
+      "stable-inner Fubini theorem"
+    ],
+    "not_yet_proved": [
+      "relative co-Yoneda",
+      "relative profunctor composition",
+      "site-presentation or Morita invariance",
+      "comparison with Span(E)-enriched and Shulman canceling-product calculi"
+    ],
+    "presentation_claims": {
+      "first_order": false,
+      "geometric": false,
+      "coherent": false,
+      "cartesian": false,
+      "algebraic": false,
+      "essentially_algebraic": false,
+      "arithmetic": false,
+      "sketchable": false
+    },
+    "site_packet": {
+      "status": "literature_supported",
+      "fixed_site": "(C,J)",
+      "canonical_stack": "U |-> Sh(C,J)/l_J(U)",
+      "topology_role": "descent and slice localization",
+      "source": "Caramello-Zanfa, Definition 2.6.4 and Theorem 2.6.8",
+      "phase_2_result": "fixed-base existence on any small site; stability proved when the base category has chosen pullbacks and the coefficient exactness hypotheses hold"
+    },
+    "span_packet": {
+      "status": "literature_supported",
+      "equipment": "Shulman's indexed profunctors",
+      "composition_formula": "Shulman Lemma 3.25, pp. 21-22",
+      "other_prior_art": "Betti-Walters 1989, Span(E)-enriched end calculus",
+      "comparison_with_candidate": "evidence_missing; Problem prob:shulman-comparison"
+    },
+    "relative_analysis": {
+      "fixed_presentation_definition": "proved_in_document",
+      "change_of_base_comparison": "proved_in_document",
+      "fixed_base_existence": "proved_in_document under displayed colimit and adjoint hypotheses",
+      "general_stability": "false on arbitrary pullback-deficient sites; proved under S1-S3",
+      "fubini": "proved_in_document under stable-inner existence",
+      "site_presentation_invariance": "evidence_missing"
+    }
+  }
+}

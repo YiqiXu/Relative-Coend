@@ -1,0 +1,1360 @@
+Relative Cowedges and Coends over a Site
+Relative (co-)Yoneda Lemma for Categories Indexed over a Small-Generated Site
+Indexed categories, fibrations, stacks and relative category theory
+Indexed categories for relative topos theory
+
+Yiqi
+August 25, 2026
+
+Abstract
+We propose a localization-sensitive universal property for ends and coends of categoryvalued data indexed over a Grothendieck site. The definition is made for a pseudofunctor
+of coefficients and specializes to the canonical stack of a sheaf topos. Its cowedges range
+over every generalized object above a slice site, rather than over a single fibre. We prove the
+representing property, uniqueness, functorial restriction to slices, invariance under indexed
+equivalence, and reduction to ordinary coends over the terminal site. We then give an
+explicit generators-and-relations coequalizer for every fixed base object. If the site category
+has chosen pullbacks, the coefficients have indexed coproducts, and reindexing preserves
+the displayed colimits, this formula is stable under base change. A pullback-deficient site
+shows why the extra base hypothesis cannot simply be omitted. Finally, under the precise
+hypothesis that the inner relative coends exist stably, we prove a Fubini theorem by identifying
+iterated and simultaneous relative cowedges. Relative co-Yoneda, profunctor composition, and
+site-presentation invariance remain open stages of the programme.
+
+Contents
+1 Introduction
+
+2
+
+2 The ambient indexed data
+
+3
+
+2.1
+
+Sites and relative-topos conventions . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+2.2
+
+Indexed categories, opposites, and coefficients . . . . . . . . . . . . . . . . . . . .
+
+4
+
+3 Localized cowedges and relative coends
+
+4
+
+4 Restriction and stable base change
+
+6
+
+5 First comparison theorems
+
+7
+
+6 Interface with relative topos theory and prior calculus
+
+8
+
+6.1 The canonical stack as coefficients . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+6.2
+
+8
+
+Relation to Shulman’s indexed profunctors . . . . . . . . . . . . . . . . . . . . . .
+1
+
+6.3
+
+Presentation boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+7 Roadmap after the foundations
+
+9
+
+8 Existence by generators and relations
+
+9
+
+8.1 A mate calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+8.2 The coequalizer presentation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+10
+
+9 Base-change stability and the missing hypothesis
+
+12
+
+10 A Fubini theorem for stable relative coends
+
+15
+
+11 Boundary of phases 2–3
+
+18
+
+1
+
+Introduction
+
+Ordinary coends package dinatural families into a single universal object. They support the
+calculus of Kan extensions, profunctors, density, and the co-Yoneda lemma. For a category varying
+over a base, however, there are two different operations that one might call a coend. One can form
+an ordinary coend separately in each fibre, or one can ask for a universal object that is compatible
+with every change of base. The first operation is familiar but does not, by itself, produce the
+second. The elementary example in example 5.3 makes this distinction explicit.
+This paper begins a coend calculus adapted to categories indexed over a Grothendieck site. Its
+basic move is to formulate the universal property over the whole slice site C/U . A relative cowedge
+with apex X therefore has a component not only for every object in D(U ), but for every generalized
+object A ∈ D(V ) above every arrow v : V → U . A second axiom compares these components after
+further pullback. The resulting universal object records precisely the descent-sensitive data that a
+fibrewise definition omits.
+The motivation comes from Drieux’s lecture series on indexed categories and relative topos
+theory [Dri25b, Dri25a, Dri26a, Dri26b]. Those slides give an indexed Yoneda construction,
+formulate indexed colimits by localization to every slice, and announce relative (co-)Yoneda and
+indexed-(co)limit projects. They are programme-level sources, not published proofs of the claims
+developed here. We therefore reconstruct the definitions from their universal properties and prove
+independently every existence or computation statement used below.
+There is important prior art. Shulman’s indexed-enriched formalism already constructs a canceling
+tensor product and the composition of indexed profunctors by a fibrewise coequalizer under
+indexed coproduct and Beck–Chevalley hypotheses [Shu13, Definition 2.4, Definition 2.10, and
+Lemma 3.25]. Earlier, Betti and Walters developed an end calculus for categories enriched in the
+bicategory of spans of a base topos [BW89]. Lee develops indexed profunctors over 2-categories
+[Lee23]. The present definition is narrower in one direction and different in another: it is initially
+unenriched and tied to a fixed site, but it makes localization over every slice part of the cowedge
+itself. Thus the intended new problem is not merely to decorate the ordinary coend sign. It is to
+relate coend calculus to topology, descent, and change of site in relative topos theory.
+
+Results of phases 0–3
+After fixing size and variance conventions, we:
+2
+
+1. define localized relative cowedges, coends, wedges, and ends;
+2. identify a relative coend with a representing object for the cowedge functor;
+3. construct restriction along every map of the site and the canonical base-change comparison
+between local coends;
+4. prove invariance under a chosen indexed equivalence and reduction to the ordinary definition
+over the terminal site; and
+5. exhibit a two-object indexed category for which fibrewise coends fail to assemble, while the
+localized coends are stable;
+6. construct every fixed-base relative coend by an explicit coequalizer, using only the displayed
+coproducts, coequalizers, and left adjoints to reindexing;
+7. prove stable base change when the base has chosen pullbacks, Beck–Chevalley holds, and
+reindexing preserves those colimits; and
+8. prove a Fubini theorem whenever the inner relative coends exist and are stable under base
+change.
+All these statements are proved in this paper. We do not yet claim a relative co-Yoneda lemma,
+a localization-sensitive profunctor bicategory, or invariance under a change of site presentation.
+Those are separated into explicit problems in section 7.
+
+2
+
+The ambient indexed data
+
+2.1
+
+Sites and relative-topos conventions
+
+Fix a Grothendieck universe and a small site (C, J). Write
+E = Sh(C, J),
+
+ℓJ = aJ y : C −→ E
+
+for the associated sheaf topos and the sheafified Yoneda functor. The canonical stack attached to
+this presentation is the pseudofunctor
+S(C,J) : C op −→ CAT,
+
+U ↦−→ E/ℓJ (U ),
+
+whose reindexing functors are pullbacks. Caramello and Zanfa prove that this is a J-stack [CZ21,
+Definition 2.6.4 and Theorem 2.6.8]. It will be the principal coefficient system for applications,
+although the definition below works for a general indexed category of coefficients.
+In the terminology of relative topos theory, a relative topos over E is a geometric morphism
+p : F → E [CZ21, Definition 8.2.2]. We keep this distinct from an indexed category D: the latter
+is input from which relative categorical constructions are formed, not by itself a relative topos.
+The smallness assumption is a phase-1 convention. A small-generated site is locally small and
+has a small J-dense subcategory [CZ21, p. 4]. After choosing such a subcategory one may apply
+the same formulas to the resulting small presentation; independence of that choice is a separate
+comparison theorem and is not assumed below. This distinction is essential: a formula on a
+presentation is not automatically an invariant of the base topos.
+Remark 2.1 (Where the topology enters). The equations in definition 3.1 use the underlying
+category C, not the covering families of J directly. The topology enters when D and V carry
+J-descent, when H respects that descent, or through the choice V = S(C,J) . Without such
+hypotheses the construction is localization-sensitive but not yet topology-invariant.
+3
+
+2.2
+
+Indexed categories, opposites, and coefficients
+
+Let
+D : C op −→ Cat,
+
+V : C op −→ CAT
+
+be pseudofunctors. We assume that each D(U ) is small and that each V(U ) is locally small. For
+an arrow u : U ′ → U , both reindexing functors are denoted u∗ ; the ambient pseudofunctor will
+always be clear. The coherence isomorphism is written
+∼
+=
+
+αv,u,X : v ∗ u∗ X −−→ (uv)∗ X.
+We suppress unit constraints when no ambiguity can result.
+Let D∨ denote the fibrewise opposite indexed category: its fibre at U is D(U )op , with the induced
+pseudofunctorial coherence. This is the indexed opposite used in relative category theory [CZ21,
+Definition 2.1.4]. Fix an indexed functor
+H : D∨ ×C D −→ V.
+Thus each fibre has a functor
+HU : D(U )op × D(U ) −→ V(U ),
+and every u : U ′ → U has an invertible comparison
+∼
+=
+
+∗
+∗
+∗
+χH
+u,A,B : u HU (A, B) −−→ HU ′ (u A, u B),
+
+(1)
+
+natural in A, B and coherent under composition. Requiring χH to be invertible is the point at
+which H is genuinely indexed rather than merely laxly indexed.
+For U ∈ C, the localization of D at U is
+D/U : (C/U )op −→ Cat,
+
+(v : V → U ) ↦−→ D(V ).
+
+If X ∈ V(U ), its cartesian constant section over C/U has value v ∗ X at v : V → U . These two
+constructions supply the domain and apex of the relative cowedges below.
+
+3
+
+Localized cowedges and relative coends
+
+Recall that for an ordinary functor K : Aop × A → B, a cowedge to X is a dinatural family
+K(A, A) → X; its initial cowedge is the coend [Lor23, Definition 1.1.4 and Definition 1.1.6]. We
+add a base coherence condition to this familiar definition.
+Definition 3.1 (Localized relative cowedge). Fix U ∈ C and X ∈ V(U ). A relative cowedge from
+H to X over U is a family
+ωv,A : HV (A, A) −→ v ∗ X
+(2)
+for every arrow v : V → U and every A ∈ D(V ), satisfying:
+(C1) fibrewise dinaturality: for each f : A → B in D(V ),
+ωv,A HV (f op , 1A ) = ωv,B HV (1B , f ) : HV (B, A) −→ v ∗ X;
+
+(3)
+
+(C2) base coherence: for every w : W → V ,
+∗
+∗
+∗
+ωvw,w∗ A χH
+w,A,A = αw,v,X w (ωv,A ) : w HV (A, A) −→ (vw) X.
+
+4
+
+(4)
+
+The set of such families is denoted Cowrel
+U (H; X).
+The definition ranges over the Grothendieck construction of D/U , but writing out equations (3)
+and (4) avoids choosing a cleavage for that construction. The two equations have different jobs:
+dinaturality moves within one fibre, whereas base coherence moves between fibres.
+A morphism (X, ω) → (Y, τ ) is a morphism m : X → Y in V(U ) such that
+v ∗ m ωv,A = τv,A
+for all v, A. This defines the category CowU (H). Equivalently, CowU (H) is the category of
+elements of the covariant functor
+Cowrel
+U (H; −) : V(U ) −→ Set.
+Definition 3.2 (Relative coend). A relative coend of H over U is an initial object (LU , λU ) of
+CowU (H). When it exists, we write
+∫︂ A∈D
+LU =
+
+H(A, A).
+rel,U
+
+The notation records that the cowedge is localized over C/U ; it is not an assertion that an ordinary
+fibrewise coend has already been computed.
+Proposition 3.3 (Representing property and uniqueness). For LU ∈ V(U ), the following are
+equivalent.
+1. There is a relative cowedge λU making (LU , λU ) initial in CowU (H).
+2. There is a natural isomorphism
+V(U )(LU , X) ∼
+= Cowrel
+U (H; X)
+
+(5)
+
+sending 1LU to λU .
+Consequently, a relative coend is unique up to a unique isomorphism compatible with its universal
+cowedge.
+Proof. Given an initial cowedge, send m : LU → X to the family (v ∗ m λU
+v,A )v,A . Initiality gives
+the inverse and its uniqueness, while composition in V(U ) gives naturality in X. Conversely,
+the image of 1LU under equation (5) is a universal element, hence an initial cowedge. The final
+assertion is the standard uniqueness of representing objects, including compatibility with the
+distinguished universal element.
+Definition 3.4 (Relative wedge and end). For an indexed functor K : D∨ ×C D → V, a relative
+wedge from X ∈ V(U ) to K consists of maps
+v ∗ X −→ KV (A, A)
+that satisfy the equations dual to equations (3) and (4). A relative end is a terminal relative
+wedge. This draft takes the dual universal property as the definition; no completeness of the
+fibrewise opposite coefficient system is assumed.
+
+5
+
+4
+
+Restriction and stable base change
+
+The use of all generalized objects has an immediate payoff: cowedges restrict without any existence
+assumption.
+Proposition 4.1 (Restriction to a slice). Every arrow u : U ′ → U induces a functor
+ρu : CowU (H) −→ CowU ′ (H).
+It sends an apex X to u∗ X. Up to the pseudofunctorial constraints, the component of ρu ω at
+v : V → U ′ and A ∈ D(V ) is ωuv,A . These functors are pseudofunctorial: ρ1U ∼
+= 1 and ρv ρu ∼
+= ρuv .
+Proof. Define
+α−1
+v,u,X
+
+ωuv,A
+
+(ρu ω)v,A : HV (A, A) −−−→ (uv)∗ X −−−−→ v ∗ u∗ X.
+The dinaturality equation is exactly that for ωuv,− . Base coherence follows by pasting the basecoherence square for ω with the associativity coherence for α. On morphisms put ρu (m) = u∗ m.
+The identity and composition comparisons are inherited from those of V, and their coherence is
+inherited from the pentagon and triangle axioms of the pseudofunctor.
+Suppose relative coends (LU , λU ) have been chosen for all U ∈ C. The restricted cowedge ρu λU
+has apex u∗ LU . Initiality at U ′ therefore supplies a unique comparison
+bu : LU ′ −→ u∗ LU
+
+(6)
+
+′
+
+such that bu λU = ρu λU , with the structural isomorphisms understood.
+Definition 4.2 (Stable relative coends). A chosen family of relative coends is stable under base
+change if every canonical map bu in equation (6) is an isomorphism.
+Theorem 4.3 (Coherent assembly). The canonical maps bu satisfy the identity and composition
+laws up to the coherence of V. If the relative coends are stable, the inverses
+∼
+=
+
+∗
+b−1
+u : u LU −−→ LU ′
+
+make (LU )U ∈C a cartesian pseudonatural object of V. This structure is uniquely determined by the
+universal cowedges.
+Proof. For an identity arrow, both the unit comparison and b1U are morphisms from the initial
+v
+u
+cowedge to its unit restriction; they agree by uniqueness. For composable arrows U ′′ −
+→ U′ −
+→ U,
+the composite of bv with v ∗ bu , followed by the associativity constraint, and the map buv are
+morphisms from the same initial cowedge over U ′′ to the same twice-restricted cowedge. They
+again agree by uniqueness. If all bu are invertible, reversing them gives the cartesian transition
+maps; the preceding identities are precisely their pseudonaturality axioms. Any other compatible
+transitions would invert morphisms with the same universal property and hence coincide with
+them.
+Remark 4.4. Existence and stability are logically separate. The definition gives bu only after
+relative coends exist on both slices; it does not force that map to be invertible. A useful existence
+theorem must therefore either prove stability or state it as an additional hypothesis.
+
+6
+
+5
+
+First comparison theorems
+
+Proposition 5.1 (Indexed-equivalence invariance). Let F : D ≃ D′ be a chosen pseudonatural
+adjoint equivalence of indexed categories, including coherent unit and counit. Let H ′ : (D′ )∨ ×C D′ →
+V, and suppose an indexed natural isomorphism
+∼
+=
+
+θ : H ==⇒ H ′ (F ∨ × F )
+has been fixed. Then for every U there is an equivalence
+CowU (H) ≃ CowU (H ′ )
+that is the identity on apex objects. In particular, one side has a relative coend if and only if
+the other does, and the resulting apex objects are canonically isomorphic relative to the chosen
+equivalence data.
+Proof. Transport a component of an H ′ -cowedge along FV and precompose with θV,A,A . Naturality
+of θ gives fibrewise dinaturality, and its indexed coherence gives base coherence. Applying a
+chosen pseudoinverse of F gives a functor in the opposite direction. The unit and counit transport
+to natural isomorphisms between the composites and the identity; their triangle identities give an
+equivalence of cowedge categories. Because apexes and apex morphisms are unchanged, initial
+objects correspond and their apexes are uniquely isomorphic by proposition 3.3.
+The word chosen in proposition 5.1 is deliberate. An unstructured statement that the fibres
+merely happen to be equivalent does not provide the coherence needed to transport equation (4).
+Proposition 5.2 (Terminal-site reduction). Let C = 1 with its unique topology. If D(∗) = A,
+V(∗) = B, and H∗ : Aop × A → B, then a relative cowedge over ∗ is exactly an ordinary cowedge
+for H∗ . Consequently,
+∫︂
+∫︂
+A∈D
+
+H(A, A) ∼
+=
+
+A∈A
+
+H∗ (A, A)
+
+rel,∗
+
+whenever either side exists.
+Proof. The slice 1/∗ has one object and one arrow. Thus equation (2) is an ordinary family
+indexed by A ∈ A, equation (3) is ordinary dinaturality, and equation (4) reduces to the unit
+axiom. The two cowedge categories are therefore isomorphic.
+u
+
+Example 5.3 (Fibrewise coends do not automatically assemble). Let C be the category 0 −
+→ 1,
+equipped with the trivial topology, and let V be the constant indexed category Set. Define
+D(1) = ∅,
+
+D(0) = 1,
+
+with the unique reindexing functor u∗ : ∅ → 1. Let H1 be the unique functor with empty domain
+and let H0 (∗, ∗) = {∗}.
+The ordinary fibrewise coend is ∅ over 1 and a singleton over 0. Since u∗ on Set is the identity,
+these two objects cannot be the values of a cartesian indexed object: there is not even a map
+{∗} → ∅ in the direction of equation (6).
+The localized relative coends behave differently. Over 0, a relative cowedge to X is one map
+{∗} → X, hence a pointed set. Over 1, the fibre D(1) contributes no component, but the
+generalized object ∗ ∈ D(0) above u : 0 → 1 again contributes one point of X. Thus Cow0 (H)
+and Cow1 (H) are both the category of pointed sets. Their initial objects are singletons, and
+the base-change map is the identity. In this example the localization-sensitive definition restores
+stable assembly precisely by remembering the object visible after pullback.
+7
+
+6
+
+Interface with relative topos theory and prior calculus
+
+6.1
+
+The canonical stack as coefficients
+
+Taking V = S(C,J) places the apex of the relative coend over U in the slice topos E/ℓJ (U ). Pullback
+supplies the reindexing used in equation (4), so stable relative coends form cartesian objects of the
+canonical stack. This is the direct phase-1 link to relative topos theory. A further identification of
+such objects with a construction intrinsic to an arbitrary geometric morphism F → E requires a
+descent theorem and is not used here.
+Drieux’s indexed hom construction is the motivating special case. In the notation of the slides, its
+value above U has generalized components
+[v : V → U ] ↦−→ D(V )(v ∗ Y, v ∗ X),
+
+(7)
+
+followed, when required, by sheafification. The 2026 slides then formulate an indexed colimit
+through universal properties on every localization and state an indexed co-Yoneda computation
+[Dri26a, Dri26b]. Formula equation (7) supports the shape of definition 3.1; the slides do not
+supply a published proof of a general relative-coend theorem, so none is inferred from them.
+
+6.2
+
+Relation to Shulman’s indexed profunctors
+
+For an S-indexed symmetric monoidal category with indexed coproducts, Shulman defines a
+canceling tensor product. Under Beck–Chevalley, tensor preservation, and fibrewise coequalizer
+hypotheses, the composite of indexed profunctors is computed by a coend-shaped coequalizer
+[Shu13, Definition 2.4, Definition 2.10, and Lemma 3.25, pp. 7–8 and 21–22]. This is an established
+indexed coend calculus and must be treated as the principal comparison theory, not as an
+anticipated application of the present paper.
+The two constructions have different inputs. Shulman’s formula begins with an indexed monoidal
+base and packages fibrewise coproducts together with change-of-base adjoints. Definition 3.1
+instead begins with an indexed functor H and enlarges each cowedge over U to every object
+of C/U . A substantive comparison theorem should identify hypotheses under which Shulman’s
+canceling tensor represents the localized cowedge functor. Until that theorem is proved, the two
+constructions are related models rather than interchangeable notation.
+Betti–Walters is an equally important novelty boundary. Their calculus is formulated for categories
+enriched in Span(E), with interchange supplied by the compact closed structure of the span
+bicategory [BW89]. The construction here is instead written on a site presentation and builds
+generalized objects in every slice into the cowedge. No equivalence between these formalisms is
+asserted without a comparison theorem.
+
+6.3
+
+Presentation boundary
+
+An internal category in E, a stack on (C, J), and a pseudofunctor on a chosen site are connected
+by comparison results, but they are not definitionally identical. Likewise, equivalent sites can
+present the same topos without giving literally equal indexing categories. The definition in
+definition 3.1 is therefore a fixed-presentation construction. Its invariance under indexed equivalence
+(proposition 5.1) is a first step, but it is not yet a Morita or change-of-site invariance theorem.
+
+8
+
+7
+
+Roadmap after the foundations
+
+The next two sections settle two of the proof obligations posed by the foundational definition.
+Theorem 8.2 constructs the relative coend over a fixed base object. Theorem 9.3 proves basechange stability under a pullback and Beck–Chevalley package, while example 9.2 shows that the
+corresponding claim on an arbitrary site is false. Theorem 10.5 proves Fubini under stable-inner
+existence. The remaining programme is therefore the following.
+Problem 7.1 (Comparison with indexed canceling products). When Shulman’s hypotheses hold,
+determine whether the localized relative coend is represented by his canceling tensor product.
+State separately the comparison on a fixed site and the additional descent needed for a stack of
+coefficients.
+Problem 7.2 (Relative co-Yoneda). For the indexed hom object suggested by equation (7),
+identify the coefficient system and tensor needed to type the expression
+∫︂ A
+D(A, X) ⊗ F (A),
+rel
+
+then prove a stable equivalence with F (X). The proof must distinguish presheaf-level computation,
+sheafification, and descent.
+Problem 7.3 (Relative profunctors). Use the existence and Fubini theorems to define composition
+of localization-sensitive indexed profunctors. Prove associativity and units, and compare the result
+with Shulman’s indexed profunctor equipment and Lee’s 2-categorical construction [Lee23].
+Problem 7.4 (Site-presentation invariance). Let two small or small-generated sites present
+equivalent base topoi. Find the additional comparison data on D, V, H for which their relativecoend objects correspond. A satisfactory theorem should be invariant under the relevant site
+Morita equivalence, not merely under a fibrewise equivalence chosen on one presentation.
+Together, these obligations retain a clear novelty boundary. The present paper supplies fixed-base
+computation, a stable range, and interchange. The later stages must connect that calculus to
+indexed hom objects, profunctor composition, descent, and presentation independence.
+
+8
+
+Existence by generators and relations
+
+Drieux’s 2026 slides propose computing indexed colimits from cocompleteness, change-of-base
+adjoints, and Beck–Chevalley [Dri26b, logical slides 17–18]. The slides do not give a published
+proof of the localized coend defined in definition 3.1. We therefore begin with a fixed base object
+and derive the representing object directly. The result is deliberately stated with only the colimits
+actually used.
+
+8.1
+
+A mate calculation
+
+Assume for the moment that every reindexing functor v ∗ : V(U ) → V(V ) has a chosen left adjoint
+v! ⊣ v ∗ , with unit η v and counit εv . For composable arrows
+w
+
+v
+
+W −
+→V −
+→ U,
+both (vw)! and v! w! are left adjoint, up to the constraint αw,v : w∗ v ∗ ∼
+= (vw)∗ , to the same functor.
+Uniqueness of left adjoints gives a canonical natural isomorphism
+∼
+=
+
+cv,w : (vw)! −−→ v! w! .
+9
+
+For Z ∈ V(V ), put
+
+v! εw
+
+cv,w
+
+Z
+v! Z.
+βv,w,Z : (vw)! w∗ Z −−→ v! w! w∗ Z −−−→
+
+(8)
+
+Lemma 8.1 (The base-coherence mate). Let h : Z → v ∗ X, and let h̄ : v! Z → X be its adjunct.
+Under (vw)! ⊣ (vw)∗ , the adjunct of
+w∗ h
+
+αw,v,X
+
+w∗ Z −−→ w∗ v ∗ X −−−−→ (vw)∗ X
+is the composite
+βv,w,Z
+
+h̄
+
+(vw)! w∗ Z −−−−→ v! Z −
+→ X.
+Proof. The adjunct of h is h̄ = εvX v! h. Hence the second displayed composite is
+v! εw
+
+cv,w
+
+εv
+
+vh
+
+Z
+(vw)! w∗ Z −−→ v! w! w∗ Z −−−→
+v! Z −−!→ v! v ∗ X −−X
+→ X.
+
+Naturality of εw moves w! w∗ h across εw
+Z . The result is the counit formula for the composite
+∗
+∗
+adjunction v! w! ⊣ w v . Transporting that composite adjunction along cv,w and αw,v gives the
+counit formula for (vw)! ⊣ (vw)∗ . Taking its adjunct therefore yields αw,v,X w∗ h, as asserted. This
+is precisely the standard calculus of mates; the displayed computation fixes the direction of every
+constraint used later.
+
+8.2
+
+The coequalizer presentation
+
+Fix U ∈ C. Since C and every D(V ) are small, the following indexing collections are sets. Define
+the object of generators
+PU = coprod v:V →U v! HV (A, A),
+(9)
+A∈ObD(V )
+
+and write ιv,A : v! HV (A, A) → PU for its coproduct injections.
+There are two sorts of relations. Fibrewise dinaturality is generated by
+∐︂
+din
+RU
+=
+v! HV (B, A).
+
+(10)
+
+v:V →U
+f :A→B in D(V )
+
+On the summand indexed by (v, f : A → B), define the parallel maps to PU by
+op
+ddin
+0 = ιv,A v! HV (f , 1A ),
+
+(11)
+
+ddin
+1 = ιv,B v! HV (1B , f ).
+
+(12)
+
+Base coherence is generated by
+∐︂
+
+bas
+RU
+=
+
+(vw)! w∗ HV (A, A).
+
+(13)
+
+v:V →U, w:W →V
+A∈ObD(V )
+
+On the summand indexed by (v, w, A), its two maps to PU are
+(vw)! χH
+w,A,A
+
+ιvw,w∗ A
+
+∗
+∗
+∗
+dbas
+−−−−→ PU ,
+0 = (vw)! w HV (A, A) −−−−−−−→ (vw)! HW (w A, w A) −
+βv,w,H
+
+(A,A)
+
+ιv,A
+
+V
+∗
+dbas
+1 = (vw)! w HV (A, A) −−−−−−−−→ v! HV (A, A) −−→ PU .
+
+Let
+din
+bas
+RU = RU
+⨿ RU
+,
+
+bas
+di = ddin
+i ⨿ di quad(i = 0, 1).
+
+10
+
+(14)
+(15)
+
+Theorem 8.2 (Fixed-base coequalizer formula). Suppose that every v ∗ has a chosen left adjoint
+v! , and that V(U ) has the coproducts in equations (9), (10) and (13) and the coequalizer
+d0
+
+q
+
+U
+RU −
+−→
+→ PU −→ LU .
+
+(16)
+
+d1
+
+Then LU , with the cowedge defined below, is the relative coend of H over U . In particular,
+V(U )(LU , X) ∼
+= Cowrel
+U (H; X)
+naturally in X ∈ V(U ).
+No pullbacks in C, Beck–Chevalley isomorphisms, or preservation of colimits by reindexing are
+needed for this fixed-base statement.
+Proof. We give the construction and both directions of the representing bijection.
+Step 1: the universal components. For each v : V → U and A ∈ D(V ), transpose
+ιv,A
+
+q
+
+U
+LU
+v! HV (A, A) −−→ PU −→
+
+through v! ⊣ v ∗ . Denote the resulting map by
+∗
+λU
+v,A : HV (A, A) −→ v LU .
+
+(17)
+
+Step 2: fibrewise dinaturality. For f : A → B in D(V ), the equation qU ddin
+= qU ddin
+on the
+0
+1
+(v, f )-summand says
+qU ιv,A v! HV (f op , 1A ) = qU ιv,B v! HV (1B , f ).
+Taking adjuncts under v! ⊣ v ∗ gives exactly
+op
+U
+λU
+v,A HV (f , 1A ) = λv,B HV (1B , f ).
+bas , the equation q dbas = q dbas has two
+Step 3: base coherence. On the (v, w, A)-summand of RU
+U 0
+U 1
+adjuncts under (vw)! ⊣ (vw)∗ . The adjunct of the first is
+λU
+vw,w∗ A
+
+χH
+w,A,A
+
+w∗ HV (A, A) −−−−→ HW (w∗ A, w∗ A) −−−−−→ (vw)∗ LU .
+By lemma 8.1, the adjunct of the second is
+w ∗ λU
+v,A
+
+αw,v,L
+
+U
+w∗ HV (A, A) −−−−→ w∗ v ∗ LU −−−−−→
+(vw)∗ LU .
+
+Their equality is precisely equation (4). Thus λU is a relative cowedge.
+Step 4: maps out of the coequalizer give cowedges. Given m : LU → X, define
+m
+ωv,A
+= v ∗ m λU
+v,A .
+
+The equations already proved for λU , together with naturality of the pseudofunctor constraints,
+show that ω m is a relative cowedge.
+Step 5: every cowedge factors uniquely. Conversely, let ω ∈ Cowrel
+U (H; X). Transpose each
+component to
+ω̄v,A : v! HV (A, A) −→ X.
+din ,
+The coproduct property gives a unique ω̄ : PU → X with ω̄ιv,A = ω̄v,A . On a summand of RU
+the equality ω̄d0 = ω̄d1 is, after adjunction, exactly the fibrewise dinaturality of ω. On a summand
+
+11
+
+bas , lemma 8.1 identifies the same equality with the base-coherence equation for ω. Thus ω̄
+of RU
+coequalizes d0 , d1 , so there is a unique m : LU → X such that mqU = ω̄. Taking adjuncts on each
+generator shows v ∗ m λU
+v,A = ωv,A .
+
+The two assignments are inverse because both are determined on the coproduct generators, and
+they are natural in X because postcomposition is used at every step. Proposition 3.3 now identifies
+LU as the relative coend.
+Remark 8.3 (Relation to the ordinary formula). When C = 1, the base-relation summands
+only encode unit constraints, and equation (16) reduces to the standard coequalizer by objects
+and arrows of D(∗). This agrees with the ordinary definition as an initial cowedge [Lor23,
+bas is additional
+Definitions 1.1.4 and 1.1.6, pp. 23–24]. On a nonterminal base, the summand RU
+data; deleting it changes the universal problem.
+
+9
+
+Base-change stability and the missing hypothesis
+
+The fixed-base construction does not by itself imply that the maps bu : LU ′ → u∗ LU are invertible.
+The exact criterion is immediate from the universal property.
+Proposition 9.1 (Exact stability criterion). For u : U ′ → U , assume that relative coends exist
+over U and U ′ . The canonical map bu is an isomorphism if and only if the restricted universal
+cowedge
+ρu (LU , λU ) = (u∗ LU , ρu λU )
+is initial in CowU ′ (H).
+′
+
+Proof. If bu is invertible, it is an isomorphism in CowU ′ (H) from the initial cowedge (LU ′ , λU )
+to the restricted cowedge; hence the latter is initial. Conversely, if both cowedges are initial, there
+is a unique arrow in each direction between them. The two composites are endomorphisms of
+′
+initial objects and therefore identities. The arrow from (LU ′ , λU ) is, by its defining equation, bu ;
+hence it is invertible.
+The following example isolates a genuine gap in a tempting statement of the hypotheses.
+Example 9.2 (Available Beck–Chevalley squares are not enough). Let C have three objects and
+two nonidentity arrows
+p
+q
+0−
+→2←
+− 1,
+and equip it with the trivial Grothendieck topology. Let V be the constant indexed category
+Set, so every reindexing functor and every chosen left adjoint is the identity. All coproducts and
+coequalizers exist and are preserved, and the Beck–Chevalley map for every pullback square that
+exists is an identity.
+Put
+D(2) = ∅,
+
+D(0) = D(1) = 1,
+
+with the unique reindexing functors, and set H0 (∗, ∗) = H1 (∗, ∗) = 1. There is no component over
+2.
+A relative cowedge over 2 with apex X consists of one point of X contributed by (p, ∗) and one
+independently contributed by (q, ∗). There is no arrow in a slice relating these two components.
+Consequently
+∼
+∼
+Cowrel
+2 (H; X) = X × X and L2 = {0, 1}.
+
+12
+
+Over 0 and 1 there is one component, so L0 ∼
+= 1. Since reindexing in V is the identity,
+= L1 ∼
+bp : 1 −→ {0, 1},
+
+bq : 1 −→ {0, 1}
+
+are the two coproduct injections and are not isomorphisms.
+Thus cocomplete fibres, cocontinuous reindexing, left adjoints, and Beck–Chevalley for all available
+pullback squares do not imply stability on an arbitrary site. What is missing here is the pullback
+of p and q. The next theorem shows that chosen pullbacks, together with the expected exactness,
+close precisely this gap for the displayed presentation.
+Theorem 9.3 (Stable base change from pullbacks). Assume the hypotheses of theorem 8.2 for
+every base object. Assume in addition that:
+(S1) C has chosen pullbacks;
+(S2) the chosen adjoints satisfy Beck–Chevalley: for every chosen pullback square
+r
+
+W
+
+V
+∼
+=
+
+s
+
+BCu,v : s! r∗ −−→ u∗ v! ;
+
+v
+
+U′
+
+(18)
+
+U
+
+u
+
+(S3) every u∗ preserves the coproducts and coequalizers appearing in equations (9), (10), (13)
+and (16).
+Then every canonical base-change map
+∼
+=
+
+bu : LU ′ −−→ u∗ LU
+is an isomorphism. Hence the fixed-base coequalizers assemble, uniquely, to a cartesian pseudonatural object of V.
+Proof. Fix u : U ′ → U . We construct an inverse au : u∗ LU → LU ′ on generators and then check
+both composites.
+Step 1: pull a generator across the square. For every v : V → U , choose its pullback along u as in
+equation (18). Preservation of the coproduct in equation (9), Beck–Chevalley, and the indexed
+comparison of H give
+∐︂
+u∗ PU ∼
+u∗ v! HV (A, A)
+(19)
+=
+v:V →U, A∈D(V )
+∐︁
+
+BC−1
+u,v
+
+−−−−−→
+
+∐︂
+
+s! r∗ HV (A, A)
+
+(20)
+
+v,A
+∐︁
+
+s ! χH
+r,A,A
+
+−−−−−−→
+
+∐︂
+
+∗
+
+∗
+
+∐︁
+
+ιs,r∗ A
+
+q
+
+′
+
+U
+s! HW (r A, r A) −−−−−→ PU ′ −−
+→ LU ′ .
+
+(21)
+
+v,A
+
+Call this composite aP : u∗ PU → LU ′ .
+Step 2: the relations are respected. For a dinaturality summand indexed by (v, f : A → B),
+pullback turns f into r∗ f : r∗ A → r∗ B. Under the first three isomorphisms in equation (21), the
+din . They
+two maps are exactly the two legs of the dinaturality relation indexed by (s, r∗ f ) in RU
+′
+therefore agree after qU ′ .
+13
+
+For a base-relation summand indexed by v : V → U , w : T → V , and A ∈ D(V ), form the chosen
+pullbacks
+W = U ′ ×U V,
+Z = U ′ ×U T.
+Writing (s, r) : W → U ′ × V and (t, k) : Z → U ′ × T , the pullback universal property gives a
+unique w̄ : Z → W with
+sw̄ = t,
+rw̄ = wk.
+Pasting of Beck–Chevalley squares identifies the pullback of the first leg equation (14) with the
+generator (t, w̄∗ r∗ A), and identifies the pullback of the second leg equation (15) with the generator
+(s, r∗ A). The comparison w̄∗ r∗ A ∼
+= k ∗ w∗ A is the pseudofunctorial constraint of D; the analogous
+comparison for H is the coherence of χH . More explicitly, after these identifications the two
+composites into LU ′ are
+H
+t! χw̄,r
+∗ A,r ∗ A
+
+qU ′ ιt,w̄∗ r∗ A
+
+βs,w̄,H
+
+qU ′ ιs,r∗ A
+
+t! w̄∗ HW (r∗ A, r∗ A) −−−−−−−−→ t! HZ (w̄∗ r∗ A, w̄∗ r∗ A) −−−−−−−→ LU ′ ,
+(r ∗ A,r ∗ A)
+
+t! w̄∗ HW (r∗ A, r∗ A) −−−−−W−−−−−−→ s! HW (r∗ A, r∗ A) −−−−−−→ LU ′ .
+bas indexed by (s, w̄, r ∗ A). The second leg
+They are precisely the two legs of the base relation in RU
+′
+has the displayed direction by lemma 8.1. Thus it too is equalized by qU ′ .
+
+It follows that aP coequalizes u∗ d0 , u∗ d1 . Since u∗ preserves equation (16), there is a unique
+au : u∗ LU −→ LU ′
+
+with au , u∗ qU = aP .
+
+(22)
+
+Step 3: au bu = 1. It suffices to precompose with every coproduct generator v!′ HV ′ (A′ , A′ ) →
+PU ′ → LU ′ , since a coequalizer is an epimorphism. Pull back the composite uv ′ : V ′ → U along u:
+r
+
+W = U ′ ×U V ′ −
+→ V ′,
+
+s
+
+W −
+→ U ′.
+
+There is a canonical section δ = (v ′ , 1V ′ ) : V ′ → W with sδ = v ′ and rδ = 1V ′ . By the definition
+of bu , the image of the (v ′ , A′ )-generator is the mate of the universal component λU
+uv ′ ,A′ . Applying
+au converts it, by Beck–Chevalley, into the (s, r∗ A′ )-generator. The mate along the section
+δ is exactly the base relation in LU ′ indexed by (s, δ, r∗ A′ ); it identifies that generator with
+(v ′ , δ ∗ r∗ A′ ) ∼
+= (v ′ , A′ ). Hence au bu is the identity on all generators and therefore on LU ′ .
+Step 4: bu au = 1. Because u∗ preserves the coequalizer, u∗ qU is an epimorphism. Using the
+coproduct and Beck–Chevalley decomposition in equation (21), it is enough to check the summand
+associated to a pullback square equation (18) and A ∈ D(V ). The map au sends it to the
+(s, r∗ A)-generator of LU ′ . The map bu then sends that generator to the restriction of λU
+us,r∗ A .
+Since us = vr, the base relation of LU indexed by (v, r, A) identifies this component with the
+original (v, A)-generator. Pulling that equality back along u proves that bu au is the identity on
+the chosen summand. Hence it is the identity on u∗ LU .
+Thus au = b−1
+u . Coherent assembly now follows from theorem 4.3.
+Remark 9.4 (Exact comparison with Shulman’s hypotheses). Shulman calls the existence of f! ⊣ f ∗
+together with Beck–Chevalley for pullback squares “indexed coproducts” [Shu13, Definition 2.4,
+p. 7]. His tensor-preservation condition is Definition 2.10, and indexed profunctor composition is
+the coequalizer of Lemma 3.25 [Shu13, pp. 8 and 21–22]. Theorem 9.3 is not a restatement of
+bas explicitly imposes relations between all generalized objects in C/U , while
+that lemma: our RU
+Shulman’s formula composes enriched indexed profunctors. A comparison between the resulting
+objects still requires a typed identification of these two universal problems.
+
+14
+
+10
+
+A Fubini theorem for stable relative coends
+
+The ordinary Fubini theorem identifies a coend over a product category with either order of
+iterated coends [Lor23, Theorem 1.3.1, pp. 37–39]. In the relative setting an inner coend must
+itself vary as indexed data before an outer relative coend can even be typed. This is why stability,
+rather than mere fibrewise existence, is the correct hypothesis.
+Let
+A, B : C op −→ Cat
+be small-fibred indexed categories, and let
+H : A∨ ×C A ×C B∨ ×C B −→ V
+
+(23)
+
+be an indexed functor. Put
+(︁
+)︁
+ˆ︁ V (A′ , B ′ ), (A, B) = HV (A′ , A, B ′ , B).
+H
+ˆ︁ is an indexed functor on (A ×C B)∨ ×C (A ×C B).
+Then H
+Definition 10.1 (Simultaneous relative cowedge). For U ∈ C and X ∈ V(U ), a simultaneous
+relative cowedge for H is a family
+ωv,A,B : HV (A, A, B, B) −→ v ∗ X
+for v : V → U , A ∈ A(V ), and B ∈ B(V ), which is dinatural separately in A and in B, and
+satisfies the joint base-coherence equation
+∗
+ωvw,w∗ A,w∗ B χH
+w,A,A,B,B = αw,v,X w ωv,A,B .
+
+Its set is denoted Cowrel,bi
+(H; X).
+U
+Lemma 10.2 (Product versus separate dinaturality). There is a natural equality of cowedge sets
+rel,bi
+ˆ︁
+Cowrel
+(H; X).
+U (H; X) = CowU
+
+Proof. Dinaturality for a morphism (f, g) : (A, B) → (A′ , B ′ ) in a product fibre implies the two
+separate equations by taking g or f to be an identity. Conversely, factor
+(f, g) = (1A′ , g)(f, 1B ).
+Apply A-dinaturality to the first change of object and B-dinaturality to the second; functoriality
+of HV makes the middle terms agree. This gives dinaturality for (f, g). The base-coherence
+ˆ︁ so the two sets coincide, naturally in X.
+equation is literally the same for H,
+For B ′ , B ∈ B(U ), restrict H to the slice C/U by setting
+′
+
+HwB ,B (A′ , A) = HW (A′ , A, w∗ B ′ , w∗ B)
+
+(w : W → U ).
+
+Assume that its relative coend exists and write
+∫︂ A∈A
+′
+KU (B , B) =
+H(A, A, B ′ , B).
+
+(24)
+
+rel,U
+
+Its universal components are
+′
+
+,B
+κU,B
+: HW (A, A, w∗ B ′ , w∗ B) −→ w∗ KU (B ′ , B).
+w,A
+
+15
+
+(25)
+
+Lemma 10.3 (Stable inner coends form an indexed bifunctor). Suppose the objects in equation (24)
+exist for every U, B ′ , B, and their canonical base-change maps
+′
+
+,B
+bB
+: KU ′ (u∗ B ′ , u∗ B) −→ u∗ KU (B ′ , B)
+u
+
+(26)
+
+are isomorphisms. Then the KU assemble to an indexed functor
+K : B∨ ×C B −→ V,
+′
+
+,B −1
+whose comparison along u is (bB
+) .
+u
+
+Proof. First fix U . For arrows r : B0′ → B1′ and s : B0 → B1 in B(U ), define
+KU (rop , s) : KU (B1′ , B0 ) −→ KU (B0′ , B1 )
+as the unique map induced by the inner cowedge whose (w, A)-component is
+HW (1,1,(w∗ r)op ,w∗ s)
+
+HW (A, A, w∗ B1′ , w∗ B0 ) −−−−−−−−−−−−−→ HW (A, A, w∗ B0′ , w∗ B1 )
+U,B ′ ,B1
+
+κw,A0
+
+−−−−−→ w∗ KU (B0′ , B1 ).
+Naturality of H shows that this is an inner relative cowedge. Two successive such maps and the
+map associated to the composite have identical composites with every universal component κw,A ,
+so uniqueness in the inner universal property makes them equal. The same argument with identity
+arrows proves the identity law. Thus each KU is a bifunctor with the asserted variance.
+For u : U ′ → U , set
+∼
+=
+
+′
+
+B ,B −1
+) : u∗ KU (B ′ , B) −−→ KU ′ (u∗ B ′ , u∗ B).
+χK
+u,B ′ ,B = (bu
+
+To check naturality in B ′ , B, compare the two candidate maps after precomposition with every
+component κ. Both reduce to the indexed naturality square of H, followed by the same universal
+component; hence they agree by uniqueness. The unit and composition constraints for χK are the
+inverses of the canonical base-change constraints. Their coherence is theorem 4.3, or equivalently
+the same uniqueness argument applied to a twice-restricted universal cowedge. Therefore K is an
+indexed functor.
+Proposition 10.4 (Currying simultaneous cowedges). Under the hypotheses of lemma 10.3, there
+is a natural bijection
+Cowrel,bi
+(H; X) ∼
+(27)
+= Cowrel
+U (K; X)
+U
+for every U and X ∈ V(U ).
+Proof. We construct both maps and verify every axiom.
+From a simultaneous cowedge to an outer cowedge. Let ω be simultaneous. Fix v : V → U and
+B ∈ B(V ). For w : W → V and A ∈ A(W ), define
+∗
+
+∗
+
+ωvw,A,w∗ B
+
+∗
+
+α−1
+w,v,X
+
+HW (A, A, w B, w B) −−−−−−−→ (vw) X −−−−→ w∗ v ∗ X.
+
+(28)
+
+The A-dinaturality of ω proves fibrewise dinaturality of this family. For z : Z → W , its basecoherence square is the joint base-coherence square of ω, pasted with the associativity pentagon
+for α. Hence equation (28) is an inner relative cowedge over V with apex v ∗ X. Universality of
+KV (B, B) supplies a unique map
+ω̄v,B : KV (B, B) −→ v ∗ X
+16
+
+(29)
+
+whose pullback along every w, after κV,B,B
+w,A , is equation (28).
+We check B-dinaturality. For f : B → C in B(V ), the two required maps from KV (C, B) to v ∗ X
+are
+ω̄v,B KV (f op , 1B ),
+ω̄v,C KV (1C , f ).
+Precompose their pullbacks with every universal component of KV (C, B). By the definition of
+the two actions of K, the resulting maps are respectively
+H(1,1,(w∗ f )op ,1)
+
+HW (A, A, w∗ C, w∗ B) −−−−−−−−−−→ HW (A, A, w∗ B, w∗ B) −→ w∗ v ∗ X,
+H(1,1,1,w∗ f )
+
+HW (A, A, w∗ C, w∗ B) −−−−−−−−→ HW (A, A, w∗ C, w∗ C) −→ w∗ v ∗ X.
+They agree by the B-dinaturality of ω. The representing property of the inner coend then makes
+the two maps from KV (C, B) equal.
+For base coherence, let w : W → V . We must show
+∗
+∗
+∗
+ω̄vw,w∗ B χK
+w,B,B = αw,v,X w ω̄v,B : w KV (B, B) −→ (vw) X.
+
+(30)
+
+Precompose both sides with bB,B
+: KW (w∗ B, w∗ B) → w∗ KV (B, B), which is an isomorphism.
+w
+W,w∗ B,w∗ B
+Then precompose with every κz,A
+. The defining equation for the canonical base-change
+map bB,B
+converts the right-hand side into the restriction of equation (28); the left-hand side is
+w
+B,B
+the same map because χK
+= 1. After cancelling the associativity constraints, equality
+w,B,B bw
+is exactly the joint base coherence of ω. Hence equation (30) holds, and ω̄ is an outer relative
+cowedge for K.
+From an outer cowedge to a simultaneous cowedge. Conversely, let τ ∈ Cowrel
+U (K; X). Define
+κV,B,B
+τv,B
+1V ,A
+τ
+ωv,A,B : HV (A, A, B, B) −−−
+−→ KV (B, B) −−→ v ∗ X,
+
+(31)
+
+with the unit constraints suppressed. The inner cowedge equation for κ gives A-dinaturality.
+The definition of the two actions of K, followed by the B-dinaturality of τ , gives B-dinaturality.
+For w : W → V , the compatibility of κ with the stable comparison χK
+w , followed by the outer
+base-coherence equation for τ , gives
+τ
+H
+∗ τ
+ωvw,w
+∗ A,w ∗ B χw,A,A,B,B = αw,v,X w ωv,A,B .
+
+Thus ω τ is simultaneous.
+The constructions are inverse. Starting with ω, the uncurried component at (v, A, B) evaluates the
+map ω̄v,B on the identity-base universal component. Its defining property equation (28) therefore
+returns ωv,A,B , up to the unit constraint. Starting with τ , the inner cowedge used to construct
+ω̄v,B from ω τ is the restriction of τv,B along all w : W → V ; this is the outer base-coherence axiom
+for τ . The uniqueness clause for the inner coend therefore gives ω̄v,B = τv,B . Both assignments
+commute with postcomposition in X, proving naturality.
+Theorem 10.5 (Relative Fubini). Assume that the A-inner coends KU (B ′ , B) of equation (24)
+exist and are stable under base change. Then the following two objects exist simultaneously, and
+when they exist there is a canonical isomorphism
+)︃
+∫︂ (A,B)∈A×B
+∫︂ B∈B (︃∫︂ A∈A
+∼
+H(A, A, B, B) =
+H(A, A, B, B) .
+(32)
+rel,U
+
+rel,U
+
+rel
+
+Here the right-hand side means the relative coend of the indexed bifunctor K, not a list of unrelated
+fibrewise coends.
+If, symmetrically, the B-inner coends exist stably, then whenever one of the simultaneous or iterated
+coends exists, all corresponding admissible orders exist and are canonically isomorphic. For three
+or more variables, all comparison composites between admissible iterated orders agree.
+17
+
+Proof. By lemma 10.2 and proposition 10.4, for every X ∈ V(U ) there are natural bijections
+rel,bi
+ˆ︁
+Cowrel
+(H; X) ∼
+= Cowrel
+U (H; X) = CowU
+U (K; X).
+
+The simultaneous coend is, by proposition 3.3, a representing object for the first functor of X; the
+iterated coend is a representing object for the last. The natural bijection therefore transports a
+universal element in either direction. Hence one object exists if and only if the other does, and
+uniqueness of representing objects gives the canonical isomorphism equation (32).
+Repeating the proof with A and B interchanged gives the other iterated order. Every comparison
+is the unique isomorphism that transports the same simultaneous universal cowedge. For three or
+more variables, any two composites of adjacent Fubini comparisons have that same property and
+hence are equal by uniqueness. This proves all associativity and higher interchange coherences
+without an additional diagram chase.
+Remark 10.6 (Why stability is not cosmetic). If the inner objects KU (B ′ , B) merely exist separately,
+the canonical maps in equation (26) need not be invertible. Then they do not provide the indexed
+comparison in the direction required for an indexed functor K, so the outer relative coend in
+equation (32) is not typed by the present definition. The theorem therefore does not silently
+promote fibrewise existence to indexed Fubini. Under the hypotheses of theorem 9.3, the needed
+stability follows automatically from the coequalizer presentation.
+
+11
+
+Boundary of phases 2–3
+
+Theorems 8.2, 9.3, and 10.5 establish fixed-base existence, one checkable stable range, and Fubini.
+They do not yet identify the relative coend with Shulman’s canceling tensor, prove the relative
+co-Yoneda formula announced in Drieux’s slides, construct a profunctor equipment, or remove
+dependence on a chosen site presentation. Those claims remain exactly the problems listed in
+section 7.
+
+References
+[BW89] Renato Betti and Robert F. C. Walters. The calculus of ends over a base topos. Journal
+of Pure and Applied Algebra, 56(3):211–220, 1989.
+[CZ21]
+
+Olivia Caramello and Riccardo Zanfa. Relative topos theory via stacks, 2021.
+
+[Dri25a] Bruno Drieux. Indexed categories, fibrations, stacks and relative category theory. Lecture
+slides, Wuhan Autumn School on Topos and Applications, 24–28 September 2025, 2025.
+[Dri25b] Bruno Drieux. Indexed categories for relative topos theory. Lecture slides, LIX, 3 June
+2025, 2025.
+[Dri26a] Bruno Drieux. Relative (co-)Yoneda lemma for categories indexed over a small-generated
+site. Lecture slides, 17 June 2026, 2026.
+[Dri26b] Bruno Drieux. Relative (co-)Yoneda lemma for categories indexed over a small-generated
+site. Lecture slides, joint work with Olivia Caramello, Topology, Algebra, and Categories
+in Logic, 28 July 2026, 2026.
+[Lee23] Seerp Roald Lee. Indexed profunctors over 2-categories, 2023.
+[Lor23] Fosco Loregian. Coend calculus, 2023. Version 7.
+[Shu13] Michael Shulman. Enriched indexed categories. Theory and Applications of Categories,
+28(21):616–695, 2013.
+18
+
+

@@ -1,0 +1,28 @@
+source_item_id	source_id	version	logical_slide	physical_pages	kind	faithful_summary	hypotheses	proof_status	article_anchor
+D25-LIX-13	D25-LIX	2025-06-03	13	13	definition	An indexed category is presented as a pseudofunctor on the base.	fixed base category	literature_supported	subsec:indexed-data
+D25-LIX-17	D25-LIX	2025-06-03	17	17	definition	Relative-site language is introduced over a base site.	site presentation	literature_supported	subsec:sites
+D25-LIX-22	D25-LIX	2025-06-03	22	22	definition	Stacks impose descent on indexed categorical data.	Grothendieck topology	literature_supported	subsec:sites
+D25-LIX-23	D25-LIX	2025-06-03	23	23	construction	The sheaf topos gives a canonical slice-valued indexing.	fixed site presentation	literature_supported	subsec:sites
+D25-WUHAN-19	D25-WUHAN	2025-09-24/28	19	19	historical-interface	Paré-style relative/indexed category theory is used as a comparison point.	pseudofunctorial indexing	literature_supported	sec:introduction
+D25-WUHAN-23	D25-WUHAN	2025-09-24/28	23	23	construction	Indexed functor categories and indexed hom data are introduced.	size and coherence conventions	literature_supported	subsec:indexed-data
+D25-WUHAN-32	D25-WUHAN	2025-09-24/28	32-33	32-33	programme	Indexed colimits are formulated through localized universal properties.	localizations on slices	evidence_missing	sec:interface
+D25-WUHAN-34	D25-WUHAN	2025-09-24/28	34-35	34-35	programme	An indexed co-Yoneda statement is announced.	additional hom and colimit hypotheses	evidence_missing	prob:coyoneda
+D26-LHC-13	D26-LHC	2026-06-17	13	52-56	construction	Indexed representables use generalized objects over arrows into the base object.	indexed category over a site	literature_supported	sec:interface
+D26-LHC-17	D26-LHC	2026-06-17	17	68-74	programme	Indexed colimits are required to be universal after localization.	existence on every slice	programme_source	sec:fixed-base-existence
+D26-LHC-19	D26-LHC	2026-06-17	19	82-90	programme	A relative co-Yoneda computation is announced.	cocomplete fibres and change-of-base structure	evidence_missing	prob:coyoneda
+D26-TACL-13	D26-TACL	2026-07-28	13	76-85	construction	The hom object is assembled from fibrewise homs over generalized objects and sheafified.	fixed site and indexed category	literature_supported	eq:drieux-hom
+D26-TACL-14	D26-TACL	2026-07-28	14	86-95	result	An indexed Yoneda comparison is stated.	canonical stack and representability data	evidence_missing	sec:interface
+D26-TACL-17	D26-TACL	2026-07-28	17	104-112	programme	Indexed colimits are characterized on all localizations.	existence and localization coherence	programme_source	sec:fixed-base-existence
+D26-TACL-18	D26-TACL	2026-07-28	18	113-127	computation-package	A computation is proposed using cocomplete fibres reindexing left adjoints and Beck-Chevalley.	cocompleteness cocontinuity left adjoints Beck-Chevalley	programme_source	thm:stable-pullback
+D26-TACL-19	D26-TACL	2026-07-28	19	128-132	programme	An indexed co-Yoneda lemma is stated as a target.	indexed hom tensor and colimit package	evidence_missing	prob:coyoneda
+D26-TACL-20	D26-TACL	2026-07-28	20	133-138	future-work	Further relative-category constructions and applications are proposed.	unproved future framework	evidence_missing	sec:next
+CZ21-SG	CZ21	arXiv:2107.04417	Conventions	4	definition	A small-generated site is locally small and has a small J-dense subcategory.	small J-dense subcategory	literature_supported	subsec:sites
+CZ21-OPP	CZ21	arXiv:2107.04417	Definition 2.1.4	14	definition	The fibrewise opposite supplies the correct indexed variance.	pseudofunctor into categories	literature_supported	subsec:indexed-data
+CZ21-CAN	CZ21	arXiv:2107.04417	Definition 2.6.4; Theorem 2.6.8	36-37	construction	The slice-valued canonical indexing is a J-stack.	small site and its sheaf topos	literature_supported	subsec:sites
+CZ21-REL	CZ21	arXiv:2107.04417	Definitions 8.2.1-8.2.2	183-184	definition	A relative site presents and a relative topos is a geometric morphism over the base topos.	fixed base topos	literature_supported	subsec:sites
+SH13-COPROD	SH13	arXiv:1212.3914	Definition 2.4	7	definition	Indexed coproducts mean left adjoints to reindexing plus Beck-Chevalley for pullback squares.	left adjoints and pullback squares	literature_supported	thm:stable-pullback
+SH13-TENSOR	SH13	arXiv:1212.3914	Definition 2.10	8	definition	Tensor preservation of indexed coproducts is a Frobenius-type canonical isomorphism.	indexed monoidal category and indexed coproducts	literature_supported	rem:shulman-boundary
+SH13-PROF	SH13	arXiv:1212.3914	Lemma 3.25	21-22	prior-art	Indexed profunctor composition is represented by a coend-shaped coequalizer under indexed coproduct tensor-preservation and fibrewise coequalizer hypotheses.	indexed coproducts preserved by tensor and fibrewise coequalizers	literature_supported	rem:shulman-boundary
+LO23-COEND	LO23	arXiv:1501.02503v7	Definitions 1.1.4 and 1.1.6	23-24	definition	An ordinary coend is the initial cowedge.	locally small codomain and relevant size	literature_supported	sec:definition
+LO23-FUBINI	LO23	arXiv:1501.02503v7	Theorem 1.3.1	37-39	prior-art	Ordinary coends over a product category agree with either iterated order.	existence of the displayed ordinary coends	literature_supported	sec:relative-fubini
+BW89-END	BW89	doi:10.1016/0022-4049(89)90057-1	abstract	211-220	prior-art	An end calculus is developed for categories enriched in Span(E) over a base topos.	base topos and Span(E)-enrichment	literature_supported	sec:interface

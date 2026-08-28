@@ -1,0 +1,8 @@
+{
+  "mode": "chapter-preview",
+  "status": "fail",
+  "errors": [
+    "validation/inventory.tsv: header mismatch; expected source_item_id,source_id,source_version,source_locator,statement_kind,source_title_plain,source_title_tex,statement_text,clause_ids,source_sha256"
+  ],
+  "disposition": "The project retains its phase-0-1 v1 evidence schema. Migrating to the v2 gate would require bundling or otherwise making the frozen source artifacts available relative to the manifest. No source PDFs were copied into this public-facing repository, and no chapter-depth-gate pass is claimed."
+}

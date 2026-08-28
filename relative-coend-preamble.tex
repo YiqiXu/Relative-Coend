@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=2.45cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\definecolor{linkblue}{RGB}{28,73,121}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  citecolor=linkblue,
+  urlcolor=linkblue,
+  pdfauthor={Yiqi},
+  pdftitle={Relative Cowedges and Coends over a Site},
+  pdfsubject={Relative (co-)Yoneda Lemma for Categories Indexed over a Small-Generated Site; Indexed categories, fibrations, stacks and relative category theory; Indexed categories for relative topos theory}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.25em}
+\setlist[enumerate]{leftmargin=1.75em,itemsep=0.25em}
+\emergencystretch=3em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\CAT}{\mathbf{CAT}}
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Sh}{\mathbf{Sh}}
+\newcommand{\Topos}{\mathbf{Topos}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\Sstack}{\mathbb{S}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\can}{\mathrm{can}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\Mor}{\mathrm{Mor}}
+\newcommand{\Cow}{\mathbf{Cow}}
+\newcommand{\Wdg}{\mathbf{Wdg}}
+\newcommand{\Rel}{\mathrm{rel}}
+\newcommand{\RCoend}{\operatorname{coend}_{\Rel}}
+\newcommand{\RCow}{\operatorname{Cow}^{\Rel}}
+\newcommand{\RBiCow}{\operatorname{Cow}^{\Rel,\mathrm{bi}}}
+\newcommand{\coeq}{\operatorname{coeq}}
+\newcommand{\colim}{\operatorname{colim}}
+\newcommand{\yon}{\mathsf{y}}
+\DeclareMathOperator{\Hom}{Hom}
+
+\newcommand{\xtoposmathtitle}{Relative Cowedges and Coends over a Site}
+\newcommand{\xtopossubtitle}{%
+  {\small\itshape Motivated by Bruno Drieux's lecture series on indexed
+  categories and relative topos theory}%
+}
+
+\title{\xtoposmathtitle\\[0.8em]\xtopossubtitle}
+\author{Yiqi}
+\date{\today}

@@ -1,0 +1,611 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Ordinary coends package dinatural families into a single universal object.
+They support the calculus of Kan extensions, profunctors, density, and the
+co-Yoneda lemma.  For a category varying over a base, however, there are two
+different operations that one might call a coend.  One can form an ordinary
+coend separately in each fibre, or one can ask for a universal object that is
+compatible with every change of base.  The first operation is familiar but
+does not, by itself, produce the second.  The elementary example in
+\cref{ex:fibrewise-failure} makes this distinction explicit.
+
+This paper begins a coend calculus adapted to categories indexed over a
+Grothendieck site.  Its basic move is to formulate the universal property over
+the whole slice site \(\C/U\).  A relative cowedge with apex \(X\) therefore
+has a component not only for every object in \(\D(U)\), but for every
+generalized object \(A\in\D(V)\) above every arrow \(v:V\to U\).  A second
+axiom compares these components after further pullback.  The resulting
+universal object records change-of-base data that a fibrewise definition
+omits.  It becomes descent-sensitive only when the indexed inputs satisfy
+the relevant \(J\)-descent hypotheses; the topology does not enter the two
+defining equations by itself.
+
+The motivation comes from Drieux's lecture series on indexed categories and
+relative topos theory \cite{Drieux2025LIX,Drieux2025Wuhan,Drieux2026LHC,
+Drieux2026TACL}.  Those slides give an indexed Yoneda construction, formulate
+indexed colimits by localization to every slice, and announce relative
+(co-)Yoneda and indexed-(co)limit projects.  They are programme-level sources,
+not published proofs of the claims developed here.  We therefore reconstruct
+the definitions from their universal properties and prove independently every
+existence or computation statement used below.
+
+There is important prior art.  Shulman's indexed-enriched formalism already
+constructs a canceling tensor product and the composition of indexed
+profunctors by a fibrewise coequalizer under indexed coproduct and
+Beck--Chevalley hypotheses \cite[Definition~2.4, Definition~2.10, and
+Lemma~3.25]{Shulman2013}.  Earlier, Betti and Walters developed an end calculus
+for categories enriched in the bicategory of spans of a base topos
+\cite{BettiWalters1989}.  Lee develops
+indexed profunctors over 2-categories \cite{Lee2023}.  The present definition
+is narrower in one direction and different in another: it is initially
+unenriched and tied to a fixed site, but it makes localization over every
+slice part of the cowedge itself.  Thus the intended new problem is not
+merely to decorate the ordinary coend sign.  It is to relate coend calculus
+to topology, descent, and change of site in relative topos theory.
+
+Pitts gives an earlier and particularly close warning against claiming
+indexed Fubini itself as new.  In Sections~1--2 of his 1985 paper, the words
+\emph{category}, \emph{functor}, and \emph{natural transformation} mean
+\(S\)-indexed ones; Lemma~1.1 uses an indexed coend construction, and the
+proof of Theorem~2.3 explicitly invokes Fubini for iterated coends
+\cite[Convention and Lemma~1.1, pp.~46--47; proof of Theorem~2.3,
+p.~51]{Pitts1985}.  The candidate contribution here is therefore narrower:
+the full-slice cowedge with its base relations, its representing
+coequalizer, and a proof that this presentation is stable under the stated
+pullback hypotheses.
+
+\subsection*{Main results}
+
+After fixing size and variance conventions, we:
+\begin{enumerate}
+  \item define localized relative cowedges, coends, wedges, and ends;
+  \item identify a relative coend with a representing object for the
+        cowedge functor;
+  \item construct restriction along every map of the site and the canonical
+        base-change comparison between local coends;
+  \item prove invariance under a chosen indexed equivalence and reduction to
+        the ordinary definition over the terminal site; and
+  \item exhibit a two-object indexed category for which fibrewise coends fail
+        to assemble, while the localized coends are stable;
+  \item construct every fixed-base relative coend by an explicit
+        coequalizer, using only the displayed coproducts, coequalizers, and
+        left adjoints to reindexing;
+  \item prove stable base change when the base has chosen pullbacks,
+        Beck--Chevalley holds, and reindexing preserves those colimits; and
+  \item prove a Fubini theorem whenever the inner relative coends exist and
+        are stable under base change.
+\end{enumerate}
+All these statements are proved in this paper.  We do \emph{not} yet claim a
+relative co-Yoneda lemma, a localization-sensitive profunctor bicategory, or
+invariance under a change of site presentation.  Those are separated into
+explicit problems in \cref{sec:next}.
+
+
+\section{The ambient indexed data}
+\label{sec:ambient}
+
+\subsection{Sites and relative-topos conventions}
+\label{subsec:sites}
+
+Fix Grothendieck universes \(\mathcal U\in\mathcal W\) and a
+\(\mathcal U\)-small site \((\C,J)\).  In this paper \(\Cat\) denotes
+\(\mathcal U\)-small categories, while \(\CAT\) allows
+\(\mathcal W\)-small categories with \(\mathcal U\)-small hom-sets.  Thus
+the indexing collections and the sets of cowedge components below are
+\(\mathcal U\)-small; the coefficient categories may have a
+\(\mathcal W\)-small class of objects.  Write
+\[
+  \E=\Sh(\C,J),
+  \qquad
+  \ell_J=a_J\yon:\C\longrightarrow\E
+\]
+for the associated sheaf topos and the sheafified Yoneda functor.  The
+canonical stack attached to this presentation is the pseudofunctor
+\[
+  \Sstack_{(\C,J)}:\C^{\op}\longrightarrow\CAT,
+  \qquad
+  U\longmapsto \E/\ell_J(U),
+\]
+whose reindexing functors are pullbacks.  Caramello and Zanfa prove that this
+is a \(J\)-stack \cite[Definition~2.6.4 and Theorem~2.6.8]{CaramelloZanfa2021}.
+It will be the principal coefficient system for applications, although the
+definition below works for a general indexed category of coefficients.
+
+In the terminology of relative topos theory, a relative topos over \(\E\) is
+a geometric morphism \(p:\mathcal F\to\E\)
+\cite[Definition~8.2.2]{CaramelloZanfa2021}.  We keep this distinct from an
+indexed category \(\D\): the latter is input from which relative categorical
+constructions are formed, not by itself a relative topos.
+
+The smallness assumption is a working convention.  A small-generated site is
+locally small and has a small \(J\)-dense subcategory
+\cite[p.~4]{CaramelloZanfa2021}.  After choosing such a subcategory one may
+apply the same formulas to the resulting small presentation; independence of
+that choice is a separate comparison theorem and is not assumed below.  This
+distinction is essential: a formula on a presentation is not automatically
+an invariant of the base topos.
+
+\begin{remark}[Where the topology enters]
+\label{rem:topology-entry}
+The equations in \cref{def:relative-cowedge} use the underlying category
+\(\C\), not the covering families of \(J\) directly.  The topology enters
+when \(\D\) and \(\V\) carry \(J\)-descent, when \(H\) respects that descent,
+or through the choice \(\V=\Sstack_{(\C,J)}\).  Without such hypotheses the
+construction is localization-sensitive but not yet topology-invariant.
+\end{remark}
+
+\subsection{Indexed categories, opposites, and coefficients}
+\label{subsec:indexed-data}
+
+Let
+\[
+  \D:\C^{\op}\longrightarrow\Cat,
+  \qquad
+  \V:\C^{\op}\longrightarrow\CAT
+\]
+be pseudofunctors.  We assume that each \(\D(U)\) is small and that each
+\(\V(U)\) is locally small.  For an arrow \(u:U'\to U\), both reindexing
+functors are denoted \(u^*\); the ambient pseudofunctor will always be clear.
+The coherence isomorphism is written
+\[
+  \alpha_{v,u,X}:v^*u^*X\xrightarrow{\ \cong\ }(uv)^*X.
+\]
+We suppress unit constraints when no ambiguity can result.
+
+Let \(\D^{\vee}\) denote the fibrewise opposite indexed category: its fibre
+at \(U\) is \(\D(U)^{\op}\), with the induced pseudofunctorial coherence.
+This is the indexed opposite used in relative category theory
+\cite[Definition~2.1.4]{CaramelloZanfa2021}.  Fix an indexed functor
+\[
+  H:\D^{\vee}\times_{\C}\D\longrightarrow\V.
+\]
+Thus each fibre has a functor
+\[
+  H_U:\D(U)^{\op}\times\D(U)\longrightarrow\V(U),
+\]
+and every \(u:U'\to U\) has an invertible comparison
+\begin{equation}
+  \chi^H_{u,A,B}:u^*H_U(A,B)\xrightarrow{\ \cong\ }
+  H_{U'}(u^*A,u^*B),
+  \label{eq:H-comparison}
+\end{equation}
+natural in \(A,B\) and coherent under composition.  Requiring \(\chi^H\) to
+be invertible is the point at which \(H\) is genuinely indexed rather than
+merely laxly indexed.
+
+For \(U\in\C\), the localization of \(\D\) at \(U\) is
+\[
+  \D/U:(\C/U)^{\op}\longrightarrow\Cat,
+  \qquad
+  (v:V\to U)\longmapsto\D(V).
+\]
+If \(X\in\V(U)\), its cartesian constant section over \(\C/U\) has value
+\(v^*X\) at \(v:V\to U\).  These two constructions supply the domain and
+apex of the relative cowedges below.
+
+
+\section{Localized cowedges and relative coends}
+\label{sec:definition}
+
+Recall that for an ordinary functor \(K:\mathcal A^{\op}\times\mathcal
+A\to\mathcal B\), a cowedge to \(X\) is a dinatural family
+\(K(A,A)\to X\); its initial cowedge is the coend
+\cite[Definition~1.1.4 and Definition~1.1.6]{Loregian2023}.  We add a base
+coherence condition to this familiar definition.
+
+\begin{definition}[Localized relative cowedge]
+\label{def:relative-cowedge}
+Fix \(U\in\C\) and \(X\in\V(U)\).  A \emph{relative cowedge from \(H\) to
+\(X\) over \(U\)} is a family
+\begin{equation}
+  \omega_{v,A}:H_V(A,A)\longrightarrow v^*X
+  \label{eq:cow-component}
+\end{equation}
+for every arrow \(v:V\to U\) and every \(A\in\D(V)\), satisfying:
+\begin{enumerate}[label=(C\arabic*)]
+  \item \emph{fibrewise dinaturality}: for each \(f:A\to B\) in
+  \(\D(V)\),
+  \begin{equation}
+    \omega_{v,A}\,H_V(f^{\op},1_A)
+    =
+    \omega_{v,B}\,H_V(1_B,f)
+    :H_V(B,A)\longrightarrow v^*X;
+    \label{eq:dinaturality}
+  \end{equation}
+  \item \emph{base coherence}: for every \(w:W\to V\),
+  \begin{equation}
+    \omega_{vw,w^*A}\,\chi^H_{w,A,A}
+    =
+    \alpha_{w,v,X}\,w^*(\omega_{v,A})
+    :w^*H_V(A,A)\longrightarrow(vw)^*X.
+    \label{eq:base-coherence}
+  \end{equation}
+\end{enumerate}
+The set of such families is denoted \(\RCow_U(H;X)\).
+\end{definition}
+
+The definition ranges over the Grothendieck construction of \(\D/U\), but
+writing out \cref{eq:dinaturality,eq:base-coherence} avoids choosing a
+cleavage for that construction.  The two equations have different jobs:
+dinaturality moves within one fibre, whereas base coherence moves between
+fibres.
+
+A morphism \((X,\omega)\to(Y,\tau)\) is a morphism \(m:X\to Y\) in
+\(\V(U)\) such that
+\[
+  v^*m\,\omega_{v,A}=\tau_{v,A}
+\]
+for all \(v,A\).  This defines the category \(\Cow_U(H)\).  Equivalently,
+\(\Cow_U(H)\) is the category of elements of the covariant functor
+\[
+  \RCow_U(H;-):\V(U)\longrightarrow\Set.
+\]
+
+\begin{definition}[Relative coend]
+\label{def:relative-coend}
+A \emph{relative coend of \(H\) over \(U\)} is an initial object
+\((L_U,\lambda^U)\) of \(\Cow_U(H)\).  When it exists, we write
+\[
+  L_U=\mathop{\int^{A\in\D}_{\Rel,U}} H(A,A).
+\]
+The notation records that the cowedge is localized over \(\C/U\); it is not
+an assertion that an ordinary fibrewise coend has already been computed.
+\end{definition}
+
+\begin{proposition}[Representing property and uniqueness]
+\label{prop:representing}
+For \(L_U\in\V(U)\), the following are equivalent.
+\begin{enumerate}
+  \item There is a relative cowedge \(\lambda^U\) making
+        \((L_U,\lambda^U)\) initial in \(\Cow_U(H)\).
+  \item There is a natural isomorphism
+  \begin{equation}
+    \V(U)(L_U,X)\cong\RCow_U(H;X)
+    \label{eq:representing}
+  \end{equation}
+  sending \(1_{L_U}\) to \(\lambda^U\).
+\end{enumerate}
+Consequently, a relative coend is unique up to a unique isomorphism
+compatible with its universal cowedge.
+\end{proposition}
+
+\begin{proof}
+Given an initial cowedge, send \(m:L_U\to X\) to the family
+\((v^*m\,\lambda^U_{v,A})_{v,A}\).  Initiality gives the inverse and its
+uniqueness, while composition in \(\V(U)\) gives naturality in \(X\).
+Conversely, the image of \(1_{L_U}\) under \cref{eq:representing} is a
+universal element, hence an initial cowedge.  The final assertion is the
+standard uniqueness of representing objects, including compatibility with
+the distinguished universal element.
+\end{proof}
+
+\begin{definition}[Relative wedge and end]
+\label{def:relative-end}
+For an indexed functor \(K:\D^{\vee}\times_{\C}\D\to\V\), a relative wedge
+from \(X\in\V(U)\) to \(K\) is a family
+\[
+  \kappa_{v,A}:v^*X\longrightarrow K_V(A,A)
+\]
+for \(v:V\to U\) and \(A\in\D(V)\), subject to two equations.  For
+\(f:A\to B\) in \(\D(V)\),
+\begin{equation}
+  K_V(1_A,f)\,\kappa_{v,A}
+  =K_V(f^{\op},1_B)\,\kappa_{v,B}
+  :v^*X\longrightarrow K_V(A,B),
+  \label{eq:wedge-dinaturality}
+\end{equation}
+and for \(w:W\to V\),
+\begin{equation}
+  \kappa_{vw,w^*A}\,\alpha_{w,v,X}
+  =\chi^K_{w,A,A}\,w^*\kappa_{v,A}
+  :w^*v^*X\longrightarrow K_W(w^*A,w^*A).
+  \label{eq:wedge-base-coherence}
+\end{equation}
+A morphism \((X,\kappa)\to(Y,\tau)\) is a map \(m:X\to Y\) with
+\(\kappa_{v,A}=\tau_{v,A}v^*m\) for every \(v,A\).  These objects and
+morphisms form \(\operatorname{Wedge}_U(K)\).  A \emph{relative end} is a
+terminal object of \(\operatorname{Wedge}_U(K)\), written
+\[
+  \mathop{\int_{A\in\D}^{\Rel,U}}K(A,A).
+\]
+No completeness of the fibrewise opposite coefficient system is assumed.
+\end{definition}
+
+
+\section{Restriction and stable base change}
+\label{sec:base-change}
+
+The use of all generalized objects has an immediate payoff: cowedges restrict
+without any existence assumption.
+
+\begin{proposition}[Restriction to a slice]
+\label{prop:restriction}
+Every arrow \(u:U'\to U\) induces a functor
+\[
+  \rho_u:\Cow_U(H)\longrightarrow\Cow_{U'}(H).
+\]
+It sends an apex \(X\) to \(u^*X\).  Up to the pseudofunctorial constraints,
+the component of \(\rho_u\omega\) at \(v:V\to U'\) and
+\(A\in\D(V)\) is \(\omega_{uv,A}\).  These functors are pseudofunctorial:
+for \(U''\xrightarrow{v}U'\xrightarrow{u}U\), the compositor
+\[
+  \gamma_{v,u}:\rho_v\rho_u\Longrightarrow\rho_{uv}
+\]
+has apex component
+\(\alpha_{v,u,X}:v^*u^*X\to(uv)^*X\), and the unitor is the unit
+constraint of \(\V\).
+\end{proposition}
+
+\begin{proof}
+Define
+\[
+  (\rho_u\omega)_{v,A}:
+  H_V(A,A)\xrightarrow{\omega_{uv,A}}(uv)^*X
+  \xrightarrow{\alpha^{-1}_{v,u,X}}v^*u^*X.
+\]
+The dinaturality equation is exactly that for \(\omega_{uv,-}\).  Base
+coherence follows by pasting the base-coherence square for \(\omega\) with
+the associativity coherence for \(\alpha\).  On morphisms put
+\(\rho_u(m)=u^*m\).  For the compositor, the defining equality for a
+morphism of cowedges is the associativity pentagon for \(\alpha\), applied
+to \(\omega_{uvz,A}\); hence its apex is exactly
+\(\alpha_{v,u,X}\).  The unitor check is the triangle axiom.  The pentagon
+and triangle for \(\gamma\) are therefore those of the pseudofunctor
+\(\V\), component by component.
+\end{proof}
+
+Suppose relative coends \((L_U,\lambda^U)\) have been chosen for all
+\(U\in\C\).  The restricted cowedge \(\rho_u\lambda^U\) has apex \(u^*L_U\).
+Initiality at \(U'\) therefore supplies a unique comparison
+\begin{equation}
+  b_u:L_{U'}\longrightarrow u^*L_U
+  \label{eq:base-change-map}
+\end{equation}
+such that \(b_u\lambda^{U'}=\rho_u\lambda^U\), with the structural
+isomorphisms understood.
+
+\begin{definition}[Stable relative coends]
+\label{def:stable}
+A chosen family of relative coends is \emph{stable under base change} if
+every canonical map \(b_u\) in \cref{eq:base-change-map} is an isomorphism.
+\end{definition}
+
+\begin{theorem}[Coherent assembly]
+\label{thm:assembly}
+The canonical maps \(b_u\) satisfy the identity and composition laws up to
+the coherence of \(\V\).  If the relative coends are stable, the inverses
+\[
+  b_u^{-1}:u^*L_U\xrightarrow{\ \cong\ }L_{U'}
+\]
+make \((L_U)_{U\in\C}\) a cartesian pseudonatural object of \(\V\).  This
+structure is uniquely determined by the universal cowedges.
+\end{theorem}
+
+\begin{proof}
+For an identity arrow, both the unit comparison and \(b_{1_U}\) are
+morphisms from the initial cowedge to its unit restriction; they agree by
+uniqueness.  For composable arrows \(U''\xrightarrow{v}U'\xrightarrow{u}U\),
+the two morphisms from the initial cowedge over \(U''\) to the
+\((uv)\)-restriction of \(\lambda^U\) are equal.  On apexes this says
+\begin{equation}
+  b_{uv}
+  =\alpha_{v,u,L_U}\,v^*b_u\,b_v.
+  \label{eq:b-composition}
+\end{equation}
+If all \(b_u\) are invertible, put
+\(\phi_u=b_u^{-1}:u^*L_U\to L_{U'}\).
+\Cref{eq:b-composition} is equivalent to
+\begin{equation}
+  \phi_v\,v^*\phi_u
+  =\phi_{uv}\,\alpha_{v,u,L_U},
+  \label{eq:phi-composition}
+\end{equation}
+and the identity argument gives its unit law.  Thus \(U\mapsto L_U\), with
+the invertible cartesian transition maps \(\phi_u\), is a cartesian section
+of the Grothendieck fibration of \(\V\), equivalently a pseudonatural
+transformation from the terminal pseudofunctor to \(\V\).  Any other
+compatible transitions would invert morphisms with the same universal
+property and hence coincide with them.
+\end{proof}
+
+\begin{remark}
+\label{rem:existence-vs-stability}
+Existence and stability are logically separate.  The definition gives
+\(b_u\) only after relative coends exist on both slices; it does not force
+that map to be invertible.  A useful existence theorem must therefore either
+prove stability or state it as an additional hypothesis.
+\end{remark}
+
+
+\section{First comparison theorems}
+\label{sec:comparisons}
+
+\begin{proposition}[Indexed-equivalence invariance]
+\label{prop:indexed-equivalence}
+Let \(F:\D\rightleftarrows\D':G\) be a chosen pseudonatural adjoint
+equivalence of indexed categories, with invertible indexed unit
+\(\eta:1_{\D}\Rightarrow GF\) and counit
+\(\varepsilon:FG\Rightarrow1_{\D'}\).  Let
+\(H':(\D')^{\vee}\times_{\C}\D'\to\V\), and suppose an indexed natural
+isomorphism
+\[
+  \theta:H\xRightarrow{\ \cong\ }H'\,(F^{\vee}\times F)
+\]
+has been fixed.  Then for every \(U\) there is an equivalence
+\[
+  \Cow_U(H)\simeq\Cow_U(H')
+\]
+that is the identity on apex objects.  In particular, one side has a relative
+coend if and only if the other does, and the resulting apex objects are
+canonically isomorphic relative to the chosen equivalence data.
+\end{proposition}
+
+\begin{proof}
+For an \(H'\)-cowedge \(\tau\) with apex \(X\), define \(T\tau\) by
+\begin{equation}
+  H_V(A,A)\xrightarrow{\theta_{V,A,A}}
+  H'_V(F_VA,F_VA)\xrightarrow{\tau_{v,F_VA}}v^*X.
+  \label{eq:equivalence-forward}
+\end{equation}
+Naturality and indexed coherence of \(\theta\) give (C1) and (C2).
+Conversely, for an \(H\)-cowedge \(\omega\), define \(S\omega\) at
+\(A'\in\D'(V)\) as
+\begin{equation}
+\begin{split}
+  H'_V(A',A')
+  &\xrightarrow{H'_V(\varepsilon_{V,A'}^{\op},
+                         \varepsilon_{V,A'}^{-1})}
+    H'_V(F_VG_VA',F_VG_VA')\\
+  &\xrightarrow{\theta^{-1}_{V,G_VA',G_VA'}}
+    H_V(G_VA',G_VA')
+  \xrightarrow{\omega_{v,G_VA'}}v^*X.
+\end{split}
+\label{eq:equivalence-backward}
+\end{equation}
+Here the first arrow is well typed because the first variable is
+contravariant.  Naturality of \(\varepsilon\) proves (C1), while the fact
+that \(\varepsilon\) and \(\theta\) are indexed modifications proves (C2).
+Both \(S\) and \(T\) leave apexes and apex morphisms unchanged.
+
+At an object \(A\in\D(V)\), the component of \(TS\omega\) is obtained from
+\(\omega_{v,G_VF_VA}\) along \(\eta_{V,A}:A\to G_VF_VA\).  Dinaturality of
+\(\omega\), followed by the triangle identity
+\(\varepsilon_{F A}F\eta_A=1_{F A}\), identifies it with
+\(\omega_{v,A}\).  The same calculation for \(A'\in\D'(V)\), now using
+\(G\varepsilon_{A'}\eta_{G A'}=1_{G A'}\), identifies \(ST\tau\) with
+\(\tau\).  These componentwise identifications are indexed by coherence of
+\(\eta,\varepsilon,\theta\), and are the identity on apexes.  Thus \(S\)
+and \(T\) are inverse equivalences of cowedge categories.  Initial objects
+correspond, and their apexes are uniquely isomorphic by
+\cref{prop:representing}.
+\end{proof}
+
+The word \emph{chosen} in \cref{prop:indexed-equivalence} is deliberate.  An
+unstructured statement that the fibres merely happen to be equivalent does
+not provide the coherence needed to transport \cref{eq:base-coherence}.
+
+\begin{proposition}[Terminal-site reduction]
+\label{prop:terminal-reduction}
+Let \(\C=\one\) with its trivial (coarsest) Grothendieck topology.  If
+\(\D(*)=\mathcal A\), \(\V(*)=\mathcal B\), and
+\(H_*:\mathcal A^{\op}\times\mathcal A\to\mathcal B\), then the
+relative-cowedge category over \(*\) is canonically isomorphic, through the
+pseudofunctor unit constraints, to the ordinary cowedge category for \(H_*\).
+Consequently,
+\[
+  \mathop{\int^{A\in\D}_{\Rel,*}}H(A,A)
+  \cong
+  \int^{A\in\mathcal A}H_*(A,A)
+\]
+whenever either side exists.
+\end{proposition}
+
+\begin{proof}
+The slice \(\one/*\) has one object and one arrow.  Thus
+\cref{eq:cow-component} is an ordinary family indexed by
+\(A\in\mathcal A\), \cref{eq:dinaturality} is ordinary dinaturality, and
+\cref{eq:base-coherence} reduces to the unit coherence.  Normalizing the
+pseudofunctors makes the two definitions literal; without normalization,
+the unit constraints give the asserted canonical isomorphism.
+\end{proof}
+
+\begin{example}[Fibrewise coends do not automatically assemble]
+\label{ex:fibrewise-failure}
+Let \(\C\) be the category \(0\xrightarrow{u}1\), equipped with the trivial
+topology, and let \(\V\) be the constant indexed category \(\Set\).  Define
+\[
+  \D(1)=\varnothing,
+  \qquad
+  \D(0)=\one,
+\]
+with the unique reindexing functor \(u^*:\varnothing\to\one\).  Let
+\(H_1\) be the unique functor with empty domain and let
+\(H_0(*,*)=\{*\}\).
+
+The ordinary fibrewise coend is \(\varnothing\) over \(1\) and a singleton
+over \(0\).  Since \(u^*\) on \(\Set\) is the identity, these two objects
+cannot be the values of a cartesian indexed object: there is not even a map
+\(\{*\}\to\varnothing\) in the direction of \cref{eq:base-change-map}.
+
+The localized relative coends behave differently.  Over \(0\), a relative
+cowedge to \(X\) is one map \(\{*\}\to X\), hence a pointed set.  Over \(1\),
+the fibre \(\D(1)\) contributes no component, but the generalized object
+\(*\in\D(0)\) above \(u:0\to1\) again contributes one point of \(X\).
+Thus \(\Cow_0(H)\) and \(\Cow_1(H)\) are both the category of pointed sets.
+Their initial objects are singletons, and the base-change map is the identity.
+In this example the localization-sensitive definition restores stable
+assembly precisely by remembering the object visible after pullback.
+\end{example}
+
+
+\section{Interface with relative topos theory and prior calculus}
+\label{sec:interface}
+
+\subsection{The canonical stack as coefficients}
+
+Taking \(\V=\Sstack_{(\C,J)}\) places the apex of the relative coend over
+\(U\) in the slice topos \(\E/\ell_J(U)\).  Pullback supplies the reindexing
+used in \cref{eq:base-coherence}, so a chosen stable family of relative
+coends determines a cartesian section of the Grothendieck fibration of the
+canonical stack.  This is a direct fixed-site link to relative topos theory,
+not yet an intrinsic relative-topos construction.  A further
+identification of such objects with a construction
+intrinsic to an arbitrary geometric morphism \(\mathcal F\to\E\) requires a
+descent theorem and is not used here.
+
+Drieux's indexed hom construction is the motivating special case.  In the
+notation of the slides, its value above \(U\) has generalized components
+\begin{equation}
+  [v:V\to U]\longmapsto
+  \D(V)(v^*Y,v^*X),
+  \label{eq:drieux-hom}
+\end{equation}
+followed, when required, by sheafification.  The 2026 slides then formulate an
+indexed colimit through universal properties on every localization and state
+an indexed co-Yoneda computation
+\cite[logical slides~13--20]{Drieux2026LHC}
+\cite[logical slides~13--22]{Drieux2026TACL}.  Formula
+\cref{eq:drieux-hom} supports the shape of
+\cref{def:relative-cowedge}; the slides do not supply a published proof of a
+general relative-coend theorem, so none is inferred from them.
+
+\subsection{Relation to Shulman's indexed profunctors}
+
+For an \(S\)-indexed symmetric monoidal category with indexed coproducts,
+Shulman defines a canceling tensor product.  Under Beck--Chevalley, tensor
+preservation, and fibrewise coequalizer hypotheses, the composite of indexed
+profunctors is computed by a coend-shaped coequalizer
+\cite[Definition~2.4, Definition~2.10, and Lemma~3.25, pp.~7--8 and
+21--22]{Shulman2013}.
+This is an established indexed coend calculus and must be treated as the
+principal comparison theory, not as an anticipated application of the
+present paper.
+
+The two constructions have different inputs.  Shulman's formula begins with
+an indexed monoidal base and packages fibrewise coproducts together with
+change-of-base adjoints.  Definition~\ref{def:relative-cowedge} instead begins
+with an indexed functor \(H\) and enlarges each cowedge over \(U\) to every
+object of \(\C/U\).  A substantive comparison theorem should identify
+hypotheses under which Shulman's canceling tensor represents the localized
+cowedge functor.  Until that theorem is proved, the two constructions are
+related models rather than interchangeable notation.
+
+Betti--Walters is an equally important novelty boundary: the title and
+published abstract of their paper identify an end calculus over a base topos
+in the span-enriched setting \cite{BettiWalters1989}.  The construction here
+is instead written on a site presentation and builds generalized objects in
+every slice into the cowedge.  Since the present source audit did not recover
+a full-text comparison at theorem level, no equivalence between the two
+formalisms is asserted without a separate comparison theorem.
+
+\subsection{Presentation boundary}
+
+An internal category in \(\E\), a stack on \((\C,J)\), and a pseudofunctor
+on a chosen site are connected by comparison results, but they are not
+definitionally identical.  Likewise, equivalent sites can present the same
+topos without giving literally equal indexing categories.  The definition in
+\cref{def:relative-cowedge} is therefore a fixed-presentation construction.
+Its invariance under indexed equivalence
+(\cref{prop:indexed-equivalence}) is a first step, but it is not yet a Morita
+or change-of-site invariance theorem.
