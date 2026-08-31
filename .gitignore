@@ -7,3 +7,9 @@
 *.out
 *.synctex.gz
 *.toc
+.cache/
+__pycache__/
+.DS_Store
+*.pyc
+*.pyo
+*.xdv
